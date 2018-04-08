@@ -3,13 +3,21 @@ import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'rea
 
 export default class App extends React.Component {
 
+    constructor(){
+        super();
+        this.state = {
+            bottleRotation: 0
+        }
+    }
+
     render() {
-        var {width} = Dimensions.get('window');
+        let {width} = Dimensions.get('window');
         width = width * .9;
+        let bottleRotation = this.state.bottleRotation.toString() + 'deg';
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={()=>{alert('pressed')}}>
-                    <Image style={{width, height: width}} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
+                    <Image style={{width, height: width, transform:[{ rotate: bottleRotation }] }} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
                 </TouchableOpacity>
             </View>
         );
