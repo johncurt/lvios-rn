@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableOpacity, Animated } from 'react-native';
 
 export default class App extends React.Component {
 
@@ -12,9 +12,15 @@ export default class App extends React.Component {
 
     rotateBottle(){
         let newDeg = Math.random() * 360;
+        const curValue = this.state.bottleRotation.__getValue();
+        if ( curValue > 720 ){
+            newDeg = curValue - newDeg - 720;
+        } else {
+            newDeg = curValue + newDeg + 720;
+        }
         Animated.timing(this.state.bottleRotation, {
             toValue: newDeg,
-            duration: 1000
+            duration: 1500
         }).start();
     }
 
