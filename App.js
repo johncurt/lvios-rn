@@ -1,28 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Animated } from 'react-native';
 
 export default class App extends React.Component {
 
     constructor(){
         super();
         this.state = {
-            bottleRotation: 0
+            bottleRotation: new Animated.Value(0)
         }
     }
 
     rotateBottle(){
         let newDeg = Math.random() * 360;
-        this.setState({bottleRotation: newDeg})
+        Animated.timing(this.state.bottleRotation, {
+            toValue: newDeg,
+            duration: 1000
+        }).start();
     }
 
     render() {
         let {width} = Dimensions.get('window');
         width = width * .9;
-        let bottleRotation = this.state.bottleRotation.toString() + 'deg';
+        const bottleRotation = this.state.bottleRotation.interpolate({
+            inputRange: [0, 360],
+            outputRange: ['0deg', '360deg']
+        });
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={()=>{this.rotateBottle()}}>
-                    <Image style={{width, height: width, transform:[{ rotate: bottleRotation }] }} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
+                    <Animated.Image style={{width, height: width, transform:[{ rotate: bottleRotation }] }} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
                 </TouchableOpacity>
             </View>
         );
