@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 export default class App extends React.Component {
 
     render() {
-        var {height, width} = Dimensions.get('window');
-        height = height * .9;
+        var {width} = Dimensions.get('window');
         width = width * .9;
         return (
             <View style={styles.container}>
-                <Image style={{width, height: width}} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
+                <TouchableOpacity onPress={()=>{alert('pressed')}}>
+                    <Image style={{width, height: width}} resizeMode={'contain'} source={require('./img/bottle.jpg')}/>
+                </TouchableOpacity>
             </View>
         );
     }
